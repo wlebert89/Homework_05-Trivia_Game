@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+#container {
+    margin: auto;
+    margin-top: 100px;
+    padding: 40px;
+    width: 70%;
+    height: 500px;
+    color: #eee;
+    background: #222;
+}
+
+#timer {
+    text-align: center;
+}
+
+#quiz-container {
+    margin-left: 100px;
+    padding:20px;
+    width: 400px;
+}
+
+#question {
+    padding: 10px;
+    font-size: 24px;
+}
+
+.answer {
+    padding: 10px;
+    width: 200px;
+}
+
+.answer:hover {
+    background: #111;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #eee;
+}
