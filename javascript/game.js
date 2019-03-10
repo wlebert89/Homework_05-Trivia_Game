@@ -75,6 +75,10 @@ var score = 0;
 
 var userAnswer;
 
+$("#question-container").addClass("hide");
+$("#game-over-container").addClass("hide");
+$("#results-container").addClass("hide");
+
 // START BUTTON CLICK
 $("#start-button").on("click", function(){
     $("#start-screen").addClass("hide");
@@ -106,18 +110,22 @@ function printCorrect(){
 
     $("#result").text(quizArray[quizIndex].c);
 
-    $("#image").html("<img> class=image").attr("scr", quizArray[quizIndex].image)
+    var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
+
+    $("#image").html(image);
 }
 
 // PRINTS THE RESULT FOR AN INCORRECT ANSWER
 function printIncorrect(){
-    $("question-container").addClass("hide");
+    $("#question-container").addClass("hide");
 
     $("#results-container").removeClass("hide");
 
     $("#result").text(quizArray[quizIndex].i);
 
-    $("#image").html("<img> class=image").attr("scr", quizArray[quizIndex].image)
+    var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
+
+    $("#image").html(image);
 }
 
 // USER INPUT LOGIC
