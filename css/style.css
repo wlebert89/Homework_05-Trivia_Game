@@ -10,14 +10,16 @@
     height: 500px;
     color: #eee;
     background: #222;
+    border-radius: 20px;
 }
 
 #timer {
     text-align: center;
+    font-size: 18px;
 }
 
-#quiz-container {
-    margin-left: 100px;
+#question-container {
+    margin: auto;
     padding:20px;
     width: 400px;
 }
@@ -41,4 +43,14 @@ h1 {
     font-size: 36px;
     text-align: center;
     color: #eee;
+}
+
+#game-over-container {
+    margin: auto;
+    margin-top: 130px;
+
+}
+
+.hide {
+    display: none;
 }

@@ -10,16 +10,20 @@
     // as the feedback screen.
 // after all 5 questions are finished, display a final score in "X/5" format to the user, with a "start over" button 
     // that will call a reset function.
-    
 
-var questions = [
+//__________________________________________________________________________________
+
+var quizArray = [
     {
         q: "this is the FIRST question.", 
         a1: "this is answer 1",
         a2: "this is answer 2",
         a3: "this is answer 3",
         a4: "this is answer 4",
-        correctAnswer: "this is answer 2"
+        correctAnswer: "this is answer 2",
+        c: "Correct!",
+        i: "Wrong It was _____",
+        image: "src='https://via.placeholder.com/640x360'"
     },
     {
         q: "this is the SECOND question.", 
@@ -27,7 +31,10 @@ var questions = [
         a2: "this is answer 2",
         a3: "this is answer 3",
         a4: "this is answer 4",
-        correctAnswer: "this is answer 4"
+        correctAnswer: "this is answer 4",
+        c: "Correct!",
+        i: "Wrong It was _____",
+        image: "src='https://via.placeholder.com/640x360'"
     },
     {
         q: "this is the THIRD question.", 
@@ -35,7 +42,10 @@ var questions = [
         a2: "this is answer 2",
         a3: "this is answer 3",
         a4: "this is answer 4",
-        correctAnswer: "this is answer 2"
+        correctAnswer: "this is answer 2",
+        c: "Correct!",
+        i: "Wrong It was _____",
+        image: "src='https://via.placeholder.com/640x360'"
     },
     {
         q: "this is the FOURTH question.", 
@@ -43,7 +53,10 @@ var questions = [
         a2: "this is answer 2",
         a3: "this is answer 3",
         a4: "this is answer 4",
-        correctAnswer: "this is answer 1"
+        correctAnswer: "this is answer 1",
+        c: "Correct!",
+        i: "Wrong It was _____",
+        image: "src='https://via.placeholder.com/640x360'"
     },
     {
         q: "this is the FIFTH question.", 
@@ -51,26 +64,49 @@ var questions = [
         a2: "this is answer 2",
         a3: "this is answer 3",
         a4: "this is answer 4",
-        correctAnswer: "this is answer 3"
+        correctAnswer: "this is answer 3",
+        c: "Correct!",
+        i: "Wrong It was _____",
+        image: "src='https://via.placeholder.com/640x360'"
     }
 ]
 
-var questionIndex = 0;
+// var results = [
+//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
+//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
+//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
+//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
+//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"}
+// ];
+
+var quizIndex = 0;
 
 var score = 0;
 
 var userAnswer;
 
 function printQuestion(){
-    $("#question").text(questions[questionIndex].q);
+    $("#question-container").removeClass("hide");
 
-    $("#answer-1").text(questions[questionIndex].a1);
+    $("#question").text(quizArray[quizIndex].q);
 
-    $("#answer-2").text(questions[questionIndex].a2);
+    $("#answer-1").text(quizArray[quizIndex].a1);
 
-    $("#answer-3").text(questions[questionIndex].a3);
+    $("#answer-2").text(quizArray[quizIndex].a2);
 
-    $("#answer-4").text(questions[questionIndex].a4);
+    $("#answer-3").text(quizArray[quizIndex].a3);
+
+    $("#answer-4").text(quizArray[quizIndex].a4);
+}
+
+function printCorrect(){
+    $("#results-container").removeClass("hide");
+
+    
+}
+
+function printIncorrect(){
+
 }
 
 printQuestion();
@@ -78,17 +114,21 @@ printQuestion();
 $(".answer").on("click", function(){
     userAnswer = ($(this).text());
     if (userAnswer === questions[questionIndex].correctAnswer){
-        alert("Correct!");
         score ++;
+        
+        printCorrect();
     } else {
-        alert("Wrong!")
+        printIncorrect();
     }
+    
     questionIndex ++;
-    if (questionIndex < 5){
+    
+    if (questionIndex < questions.length){
         printQuestion();
         
     } else {
-        $("#quiz-container").html("<div>GAME OVER</div>").addClass("game-over");
+        $("#question-container").addClass("hide");
+        $("#game-over-container").toggleClass("hide");
     }
 })
 
