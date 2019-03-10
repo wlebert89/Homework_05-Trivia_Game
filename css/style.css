@@ -18,10 +18,10 @@
     font-size: 18px;
 }
 
-#question-container {
+.container {
     margin: auto;
     padding:20px;
-    width: 400px;
+    width: 400px; 
 }
 
 #question {
@@ -43,6 +43,12 @@ h1 {
     font-size: 36px;
     text-align: center;
     color: #eee;
+}
+
+#image {
+    margin: auto;
+    margin-top: 40px;
+    width: 50%;
 }
 
 #game-over-container {

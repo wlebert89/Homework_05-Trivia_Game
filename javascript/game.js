@@ -23,7 +23,7 @@ var quizArray = [
         correctAnswer: "this is answer 2",
         c: "Correct!",
         i: "Wrong It was _____",
-        image: "src='https://via.placeholder.com/640x360'"
+        image: "https://via.placeholder.com/640x360"
     },
     {
         q: "this is the SECOND question.", 
@@ -34,7 +34,7 @@ var quizArray = [
         correctAnswer: "this is answer 4",
         c: "Correct!",
         i: "Wrong It was _____",
-        image: "src='https://via.placeholder.com/640x360'"
+        image: "https://via.placeholder.com/640x360"
     },
     {
         q: "this is the THIRD question.", 
@@ -45,7 +45,7 @@ var quizArray = [
         correctAnswer: "this is answer 2",
         c: "Correct!",
         i: "Wrong It was _____",
-        image: "src='https://via.placeholder.com/640x360'"
+        image: "https://via.placeholder.com/640x360"
     },
     {
         q: "this is the FOURTH question.", 
@@ -56,7 +56,7 @@ var quizArray = [
         correctAnswer: "this is answer 1",
         c: "Correct!",
         i: "Wrong It was _____",
-        image: "src='https://via.placeholder.com/640x360'"
+        image: "https://via.placeholder.com/640x360"
     },
     {
         q: "this is the FIFTH question.", 
@@ -67,17 +67,9 @@ var quizArray = [
         correctAnswer: "this is answer 3",
         c: "Correct!",
         i: "Wrong It was _____",
-        image: "src='https://via.placeholder.com/640x360'"
+        image: "https://via.placeholder.com/640x360"
     }
 ]
-
-// var results = [
-//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
-//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
-//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
-//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"},
-//     {c: "Correct!", i: "Wrong! It was _____", image: "src='https://via.placeholder.com/640x360'"}
-// ];
 
 var quizIndex = 0;
 
@@ -102,7 +94,9 @@ function printQuestion(){
 function printCorrect(){
     $("#results-container").removeClass("hide");
 
-    
+    $("#result").text(quizArray[quizIndex].c);
+
+    $("#image").html("<img> class=image").attr("scr", quizArray[quizIndex].image)
 }
 
 function printIncorrect(){
@@ -113,17 +107,16 @@ printQuestion();
 
 $(".answer").on("click", function(){
     userAnswer = ($(this).text());
-    if (userAnswer === questions[questionIndex].correctAnswer){
+    if (userAnswer === quizArray[quizIndex].correctAnswer){
         score ++;
-        
         printCorrect();
     } else {
         printIncorrect();
     }
     
-    questionIndex ++;
+    quizIndex ++;
     
-    if (questionIndex < questions.length){
+    if (quizIndex < quizArray.length){
         printQuestion();
         
     } else {
