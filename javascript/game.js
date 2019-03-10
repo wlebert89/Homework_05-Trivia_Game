@@ -1,8 +1,6 @@
-// need a questions array
-// inside the questions array, each question, with its possible answers, and its correct answer, will be inside of an object
-// once the game is initiated by the user, the first question will be displayed, with the possible answers below it
-// a timer will begin a countdown from 00:30
-// the user may respond by clicking directly on one of the answers.
+// THINGS TO DO
+
+// question timer
 // if the user answers the question before the time runs out, display a feedback screen telling the user whether or not
     // they are correct. 
 // This feedback screen should last 5 seconds and then move on to the next question.
@@ -77,7 +75,16 @@ var score = 0;
 
 var userAnswer;
 
+// START BUTTON CLICK
+$("#start-button").on("click", function(){
+    $("#start-screen").addClass("hide");
+    printQuestion();
+});
+
+// PRINTS THE QUESTION
 function printQuestion(){
+    $("#results-container").addClass("hide");
+
     $("#question-container").removeClass("hide");
 
     $("#question").text(quizArray[quizIndex].q);
@@ -91,7 +98,10 @@ function printQuestion(){
     $("#answer-4").text(quizArray[quizIndex].a4);
 }
 
+// PRINTS THE RESULT FOR A CORRECT ANSWER
 function printCorrect(){
+    $("#question-container").addClass("hide");
+
     $("#results-container").removeClass("hide");
 
     $("#result").text(quizArray[quizIndex].c);
@@ -99,12 +109,18 @@ function printCorrect(){
     $("#image").html("<img> class=image").attr("scr", quizArray[quizIndex].image)
 }
 
+// PRINTS THE RESULT FOR AN INCORRECT ANSWER
 function printIncorrect(){
+    $("question-container").addClass("hide");
 
+    $("#results-container").removeClass("hide");
+
+    $("#result").text(quizArray[quizIndex].i);
+
+    $("#image").html("<img> class=image").attr("scr", quizArray[quizIndex].image)
 }
 
-printQuestion();
-
+// USER INPUT LOGIC
 $(".answer").on("click", function(){
     userAnswer = ($(this).text());
     if (userAnswer === quizArray[quizIndex].correctAnswer){
@@ -115,13 +131,14 @@ $(".answer").on("click", function(){
     }
     
     quizIndex ++;
-    
-    if (quizIndex < quizArray.length){
-        printQuestion();
-        
-    } else {
-        $("#question-container").addClass("hide");
-        $("#game-over-container").toggleClass("hide");
-    }
-})
+});
 
+// TIMER LOGIC
+
+    // if (quizIndex < quizArray.length){
+    //     printQuestion();
+        
+    // } else {
+    //     $("#question-container").addClass("hide");
+    //     $("#game-over-container").removeClass("hide");
+    // }
