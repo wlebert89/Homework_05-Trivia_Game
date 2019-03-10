@@ -1,14 +1,10 @@
 // THINGS TO DO
 
 // question timer
-// if the user answers the question before the time runs out, display a feedback screen telling the user whether or not
-    // they are correct. 
-// This feedback screen should last 5 seconds and then move on to the next question.
-// if the user fails to respond before the question times out, display an "out of time" message with the same parameters
-    // as the feedback screen.
-// after all 5 questions are finished, display a final score in "X/5" format to the user, with a "start over" button 
-    // that will call a reset function.
-
+// if the user answers the question before the time runs out, display a result screen telling the user whether or not they are correct. 
+// This result screen should last 5 seconds and then iterate the quizIndex to call the next question.
+// if the user fails to respond before the question times out, display an "out of time" message with the same parameters as the result screen.
+// after all questions are finished, display a final score in "X/quizArray.length" format to the user, with a "start over" button
 //__________________________________________________________________________________
 
 var quizArray = [
@@ -21,6 +17,7 @@ var quizArray = [
         correctAnswer: "this is answer 2",
         c: "Correct!",
         i: "Wrong It was _____",
+        t: "Time's Up!",
         image: "https://via.placeholder.com/640x360"
     },
     {
@@ -32,6 +29,7 @@ var quizArray = [
         correctAnswer: "this is answer 4",
         c: "Correct!",
         i: "Wrong It was _____",
+        t: "Time's Up!",
         image: "https://via.placeholder.com/640x360"
     },
     {
@@ -43,6 +41,7 @@ var quizArray = [
         correctAnswer: "this is answer 2",
         c: "Correct!",
         i: "Wrong It was _____",
+        t: "Time's Up!",
         image: "https://via.placeholder.com/640x360"
     },
     {
@@ -54,6 +53,7 @@ var quizArray = [
         correctAnswer: "this is answer 1",
         c: "Correct!",
         i: "Wrong It was _____",
+        t: "Time's Up!",
         image: "https://via.placeholder.com/640x360"
     },
     {
@@ -65,6 +65,7 @@ var quizArray = [
         correctAnswer: "this is answer 3",
         c: "Correct!",
         i: "Wrong It was _____",
+        t: "Time's Up!",
         image: "https://via.placeholder.com/640x360"
     }
 ]
@@ -76,8 +77,8 @@ var score = 0;
 var userAnswer;
 
 $("#question-container").addClass("hide");
+$("#result-container").addClass("hide");
 $("#game-over-container").addClass("hide");
-$("#results-container").addClass("hide");
 
 // START BUTTON CLICK
 $("#start-button").on("click", function(){
@@ -87,7 +88,7 @@ $("#start-button").on("click", function(){
 
 // PRINTS THE QUESTION
 function printQuestion(){
-    $("#results-container").addClass("hide");
+    $("#result-container").addClass("hide");
 
     $("#question-container").removeClass("hide");
 
@@ -106,26 +107,30 @@ function printQuestion(){
 function printCorrect(){
     $("#question-container").addClass("hide");
 
-    $("#results-container").removeClass("hide");
+    $("#result-container").removeClass("hide");
 
     $("#result").text(quizArray[quizIndex].c);
 
     var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
 
     $("#image").html(image);
+
+    setTimeout(printQuestion, 5000);
 }
 
 // PRINTS THE RESULT FOR AN INCORRECT ANSWER
 function printIncorrect(){
     $("#question-container").addClass("hide");
 
-    $("#results-container").removeClass("hide");
+    $("#result-container").removeClass("hide");
 
     $("#result").text(quizArray[quizIndex].i);
 
     var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
 
     $("#image").html(image);
+
+    setTimeout(printQuestion, 5000);
 }
 
 // USER INPUT LOGIC
