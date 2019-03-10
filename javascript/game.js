@@ -1,8 +1,6 @@
 // THINGS TO DO
 
 // question timer
-// if the user answers the question before the time runs out, display a result screen telling the user whether or not they are correct. 
-// This result screen should last 5 seconds and then iterate the quizIndex to call the next question.
 // if the user fails to respond before the question times out, display an "out of time" message with the same parameters as the result screen.
 // after all questions are finished, display a final score in "X/quizArray.length" format to the user, with a "start over" button
 //__________________________________________________________________________________
@@ -114,8 +112,6 @@ function printCorrect(){
     var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
 
     $("#image").html(image);
-
-    setTimeout(printQuestion, 5000);
 }
 
 // PRINTS THE RESULT FOR AN INCORRECT ANSWER
@@ -129,8 +125,15 @@ function printIncorrect(){
     var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
 
     $("#image").html(image);
+}
 
-    setTimeout(printQuestion, 5000);
+// PRINTS THE GAME OVER SCREEN
+function printGameOver(){
+    $("#question-container").addClass("hide");
+
+    $("#result-container").addClass("hide");    
+
+    $("#game-over-container").removeClass("hide");
 }
 
 // USER INPUT LOGIC
@@ -138,20 +141,17 @@ $(".answer").on("click", function(){
     userAnswer = ($(this).text());
     if (userAnswer === quizArray[quizIndex].correctAnswer){
         score ++;
-        printCorrect();
+        printCorrect(); 
     } else {
         printIncorrect();
     }
-    
     quizIndex ++;
+    if (quizIndex < quizArray.length){
+        setTimeout(printQuestion, 5000);
+    } else {
+        setTimeout(printGameOver, 5000); 
+    }
 });
 
 // TIMER LOGIC
 
-    // if (quizIndex < quizArray.length){
-    //     printQuestion();
-        
-    // } else {
-    //     $("#question-container").addClass("hide");
-    //     $("#game-over-container").removeClass("hide");
-    // }
