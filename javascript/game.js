@@ -1,7 +1,5 @@
 // THINGS TO DO
 
-// question timer
-// if the user fails to respond before the question times out, display an "out of time" message with the same parameters as the result screen.
 // after all questions are finished, display a final score in "X/quizArray.length" format to the user, with a "start over" button
 //__________________________________________________________________________________
 
@@ -74,6 +72,10 @@ var score = 0;
 
 var userAnswer;
 
+var timeLeft = 6;
+
+var interval;
+
 $("#question-container").addClass("hide");
 $("#result-container").addClass("hide");
 $("#game-over-container").addClass("hide");
@@ -81,11 +83,39 @@ $("#game-over-container").addClass("hide");
 // START BUTTON CLICK
 $("#start-button").on("click", function(){
     $("#start-screen").addClass("hide");
+    $("#timer").html(timeLeft + " seconds remaining")
     printQuestion();
 });
 
 // PRINTS THE QUESTION
+
+// var timer = () => {}
+
+function timer(){
+    interval = setInterval(function(){
+        if (timeLeft > 0){
+            timeLeft --;
+            $("#timer").html(timeLeft + " seconds remaining")
+        } else {
+            clearInterval(interval);
+            console.log(quizArray, quizIndex);
+            printResult(quizArray[quizIndex].t);
+            if (quizIndex < quizArray.length){
+                setTimeout(printQuestion, 5000);
+            } else {
+                setTimeout(printGameOver, 5000); 
+            }
+            quizIndex ++;
+            timeLeft = 6;
+        }
+    }, 1000)
+}
+
 function printQuestion(){
+    timeLeft = 6;
+    $("#timer").html(timeLeft + " seconds remaining")
+    timer();
+
     $("#result-container").addClass("hide");
 
     $("#question-container").removeClass("hide");
@@ -101,26 +131,12 @@ function printQuestion(){
     $("#answer-4").text(quizArray[quizIndex].a4);
 }
 
-// PRINTS THE RESULT FOR A CORRECT ANSWER
-function printCorrect(){
+function printResult(text){
     $("#question-container").addClass("hide");
 
     $("#result-container").removeClass("hide");
 
-    $("#result").text(quizArray[quizIndex].c);
-
-    var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
-
-    $("#image").html(image);
-}
-
-// PRINTS THE RESULT FOR AN INCORRECT ANSWER
-function printIncorrect(){
-    $("#question-container").addClass("hide");
-
-    $("#result-container").removeClass("hide");
-
-    $("#result").text(quizArray[quizIndex].i);
+    $("#result").text(text);
 
     var image = $("<img>").addClass("image").attr("src", quizArray[quizIndex].image)
 
@@ -139,11 +155,14 @@ function printGameOver(){
 // USER INPUT LOGIC
 $(".answer").on("click", function(){
     userAnswer = ($(this).text());
+    
+    clearInterval(interval);
+
     if (userAnswer === quizArray[quizIndex].correctAnswer){
         score ++;
-        printCorrect(); 
+        printResult(quizArray[quizIndex].c);
     } else {
-        printIncorrect();
+        printResult(quizArray[quizIndex].i);
     }
     quizIndex ++;
     if (quizIndex < quizArray.length){
@@ -152,6 +171,4 @@ $(".answer").on("click", function(){
         setTimeout(printGameOver, 5000); 
     }
 });
-
-// TIMER LOGIC
 
