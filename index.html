@@ -7,16 +7,18 @@
     <title>Trivia Game</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Black+And+White+Picture|Josefin+Slab" rel="stylesheet">
 </head>
 <body>
 
     <div id="container">
-        <h1>Trivia Game</h1>
+        <h1>Trivia in Color</h1>
+        <hr>
         <br>
         <div id="timer"></div>
         <br>
         <div id="start-screen" class="container">
-            <button id="start-button" class="button">Begin Quiz</button>
+            <button class="reset button">Begin Quiz</button>
         </div>
         <div id="question-container" class="container">
             <div id="question"></div>
@@ -36,6 +38,8 @@
         </div>
         <div id="game-over-container" class="container">
             <h1>Game Over!</h1>
+            <h2 id="score"></h2>
+            <button class="reset button">Restart Quiz</button>
         </div>
     </div>
 

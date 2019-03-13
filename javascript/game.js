@@ -1,68 +1,63 @@
-// THINGS TO DO
-
-// after all questions are finished, display a final score in "X/quizArray.length" format to the user, with a "start over" button
-//__________________________________________________________________________________
-
 var quizArray = [
     {
-        q: "this is the FIRST question.", 
-        a1: "this is answer 1",
-        a2: "this is answer 2",
-        a3: "this is answer 3",
-        a4: "this is answer 4",
-        correctAnswer: "this is answer 2",
+        q: "Which of the following colors has the longest wavelength?", 
+        a1: "Yellow",
+        a2: "Green",
+        a3: "Red",
+        a4: "Violet",
+        correctAnswer: "Red",
         c: "Correct!",
-        i: "Wrong It was _____",
-        t: "Time's Up!",
-        image: "https://via.placeholder.com/640x360"
+        i: "Wrong, the correct answer is red.",
+        t: "Time's Up! The answer is red.",
+        image: "images/red.jpg"
     },
     {
-        q: "this is the SECOND question.", 
-        a1: "this is answer 1",
-        a2: "this is answer 2",
-        a3: "this is answer 3",
-        a4: "this is answer 4",
-        correctAnswer: "this is answer 4",
+        q: "Which of the following are a pair of complementary colors?", 
+        a1: "Red & Blue",
+        a2: "Yellow & Orange",
+        a3: "Green & Purple",
+        a4: "Blue & Orange",
+        correctAnswer: "Blue & Orange",
         c: "Correct!",
-        i: "Wrong It was _____",
-        t: "Time's Up!",
-        image: "https://via.placeholder.com/640x360"
+        i: "Wrong, blue and orange are complementary colors.",
+        t: "Time's Up! The answer is blue & orange.",
+        image: "images/complementary.jpg"
     },
     {
-        q: "this is the THIRD question.", 
-        a1: "this is answer 1",
-        a2: "this is answer 2",
-        a3: "this is answer 3",
-        a4: "this is answer 4",
-        correctAnswer: "this is answer 2",
+        q: "Which color of light do plants absorb least?", 
+        a1: "Green",
+        a2: "Red",
+        a3: "Blue",
+        a4: "Yellow",
+        correctAnswer: "Green",
         c: "Correct!",
-        i: "Wrong It was _____",
-        t: "Time's Up!",
-        image: "https://via.placeholder.com/640x360"
+        i: "Wrong, plants absorb green light the least.",
+        t: "Time's Up! The answer is green.",
+        image: "images/green.jpg"
     },
     {
-        q: "this is the FOURTH question.", 
-        a1: "this is answer 1",
-        a2: "this is answer 2",
-        a3: "this is answer 3",
-        a4: "this is answer 4",
-        correctAnswer: "this is answer 1",
+        q: "Which of the following is NOT a primary color?", 
+        a1: "Blue",
+        a2: "Green",
+        a3: "Yellow",
+        a4: "Red",
+        correctAnswer: "Green",
         c: "Correct!",
-        i: "Wrong It was _____",
-        t: "Time's Up!",
-        image: "https://via.placeholder.com/640x360"
+        i: "Wrong, green is not a primary color.",
+        t: "Time's Up! The answer is green.",
+        image: "images/primary.jpg"
     },
     {
-        q: "this is the FIFTH question.", 
-        a1: "this is answer 1",
-        a2: "this is answer 2",
-        a3: "this is answer 3",
-        a4: "this is answer 4",
-        correctAnswer: "this is answer 3",
+        q: "What is the word for the dark grey color seen by the eyes in perfect darkness as a result of signals from the optic nerves?", 
+        a1: "Umami",
+        a2: "Greyscale",
+        a3: "Eigengrau",
+        a4: "Chromatose",
+        correctAnswer: "Eigengrau",
         c: "Correct!",
-        i: "Wrong It was _____",
-        t: "Time's Up!",
-        image: "https://via.placeholder.com/640x360"
+        i: "Wrong, the answer is eigengrau.",
+        t: "Time's Up! The answer is eigengrau.",
+        image: "images/eigengrau.jpg"
     }
 ]
 
@@ -72,7 +67,7 @@ var score = 0;
 
 var userAnswer;
 
-var timeLeft = 6;
+var timeLeft = 30;
 
 var interval;
 
@@ -81,16 +76,17 @@ $("#result-container").addClass("hide");
 $("#game-over-container").addClass("hide");
 
 // START BUTTON CLICK
-$("#start-button").on("click", function(){
+$(".reset").on("click", function(){
+    quizIndex = 0;
+    score = 0;
+    $("#timer").removeClass("hide");
     $("#start-screen").addClass("hide");
+    $("#game-over-container").addClass("hide");
     $("#timer").html(timeLeft + " seconds remaining")
     printQuestion();
 });
 
-// PRINTS THE QUESTION
-
-// var timer = () => {}
-
+// TIMER LOGIC
 function timer(){
     interval = setInterval(function(){
         if (timeLeft > 0){
@@ -98,23 +94,25 @@ function timer(){
             $("#timer").html(timeLeft + " seconds remaining")
         } else {
             clearInterval(interval);
-            console.log(quizArray, quizIndex);
             printResult(quizArray[quizIndex].t);
             if (quizIndex < quizArray.length){
-                setTimeout(printQuestion, 5000);
+                setTimeout(printQuestion, 3000);
             } else {
-                setTimeout(printGameOver, 5000); 
+                setTimeout(printGameOver, 3000); 
             }
             quizIndex ++;
-            timeLeft = 6;
+            timeLeft = 30;
         }
     }, 1000)
 }
 
+// PRINTS THE QUESTION
 function printQuestion(){
-    timeLeft = 6;
+    timeLeft = 30;
     $("#timer").html(timeLeft + " seconds remaining")
     timer();
+
+    $("#timer").removeClass("hide");
 
     $("#result-container").addClass("hide");
 
@@ -129,10 +127,15 @@ function printQuestion(){
     $("#answer-3").text(quizArray[quizIndex].a3);
 
     $("#answer-4").text(quizArray[quizIndex].a4);
+
+    console.log("The correct answer is " + quizArray[quizIndex].correctAnswer);
 }
 
+// PRINTS THE RESULT OF THE USER RESPONSE OR TIMEOUT
 function printResult(text){
     $("#question-container").addClass("hide");
+
+    $("#timer").addClass("hide");
 
     $("#result-container").removeClass("hide");
 
@@ -147,9 +150,13 @@ function printResult(text){
 function printGameOver(){
     $("#question-container").addClass("hide");
 
-    $("#result-container").addClass("hide");    
+    $("#result-container").addClass("hide");
+    
+    $("#timer").addClass("hide");
 
     $("#game-over-container").removeClass("hide");
+
+    $("#score").html("Score: " + score + "/" + quizArray.length)
 }
 
 // USER INPUT LOGIC
@@ -166,9 +173,9 @@ $(".answer").on("click", function(){
     }
     quizIndex ++;
     if (quizIndex < quizArray.length){
-        setTimeout(printQuestion, 5000);
+        setTimeout(printQuestion, 3000);
     } else {
-        setTimeout(printGameOver, 5000); 
+        setTimeout(printGameOver, 3000); 
     }
 });
 
